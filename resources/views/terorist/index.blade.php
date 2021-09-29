@@ -12,7 +12,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Pelanggan</th>
+                                    <th>Nama</th>
                                     <th>Terduga</th>
                                     <th>Kode Densus</th>
                                     <th>Opsi</th>
@@ -26,7 +26,7 @@
                                     <td>{{$d->terduga}}</td>
                                     <td>{{$d->kode_densus}}</td>
                                     <td>
-                                        <a href="" id="showModal" data-toggle="modal" data-target='#practice_modal' data-id="{{ $d->id }}">Edit</a>
+                                        <a href="" id="showModal" data-toggle="modal" data-target='#practice_modal' data-id="{{ $d->id }}">Detail</a>
                                     </td>
                                 </tr>
                                 @endforeach

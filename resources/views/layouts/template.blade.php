@@ -73,6 +73,7 @@
                 <li><a class="nav-link" href="{{route('datapaspor.index')}}">Data Tanpa NIK</a></li>
               </ul>
             </li>
+            <li class="{{ (request()->is('nasabah')) ? 'active' : '' }}"><a class="nav-link" href="{{route('nasabah.index')}}"><i class="fas fa-users"></i> <span>Nasabah</span></a></li>
           </ul>
         </aside>
       </div>
@@ -147,10 +148,7 @@
 
           </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
+          
         </div>
       </div>
     </div>
@@ -211,10 +209,7 @@
 
           </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
+          
         </div>
       </div>
     </div>
@@ -275,10 +270,7 @@
 
           </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
+          
         </div>
       </div>
     </div>
@@ -300,7 +292,11 @@
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script>
       $(document).ready(function() {
-        $('#example').DataTable();
+        $('#example').DataTable({
+          language: {
+            searchPlaceholder: "Cari nama,NIK atau paspor"
+          }
+        });
       });
     </script>
     @yield('javascript')

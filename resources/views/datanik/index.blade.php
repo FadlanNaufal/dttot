@@ -12,7 +12,8 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Pelanggan</th>
+                                    <th>Nama</th>
+                                    <th>NIK</th>
                                     <th>Terduga</th>
                                     <th>Kode Densus</th>
                                     <th>Opsi</th>
@@ -23,10 +24,11 @@
                                 <tr>
                                     <td>{{$loop->index+1}}</td>
                                     <td>{{$d->nama}}</td>
+                                    <td>{{$d->id_nik}}</td>
                                     <td>{{$d->terduga}}</td>
                                     <td>{{$d->kode_densus}}</td>
                                     <td>
-                                        <a href="" id="showModalNik" data-toggle="modal" data-target='#practice_modal_nik' data-id="{{ $d->id }}">Edit</a>
+                                        <a href="" id="showModalNik" data-toggle="modal" data-target='#practice_modal_nik' data-id="{{ $d->id }}">Detail</a>
                                     </td>
                                 </tr>
                                 @endforeach

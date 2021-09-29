@@ -29,3 +29,7 @@ Route::get('/datanik/{id}','DatanikController@show')->name('datanik.show');
 
 Route::resource('datapaspor','DatanonikController');
 Route::get('/datapaspor/{id}','DatanonikController@show')->name('datapaspor.show');
+
+Route::get('/nasabah','NasabahController@index')->name('nasabah.index');
+Route::post('/nasabah','NasabahController@index')->name('nasabah.search');
+
