@@ -73,7 +73,7 @@
                 <li><a class="nav-link" href="{{route('datapaspor.index')}}">Data Tanpa NIK</a></li>
               </ul>
             </li>
-            <li class="{{ (request()->is('nasabah')) ? 'active' : '' }}"><a class="nav-link" href="{{route('nasabah.index')}}"><i class="fas fa-users"></i> <span>Nasabah</span></a></li>
+            <li class="{{ (request()->is('nasabah')) ? 'active' : '' }}"><a class="nav-link" href="{{route('nasabah.index')}}"><i class="fas fa-users"></i> <span>Cek Nasabah Ilegal</span></a></li>
           </ul>
         </aside>
       </div>
@@ -275,6 +275,43 @@
       </div>
     </div>
 
+
+    <div class="modal fade bd-example-modal-lg" id="practice_modal_nasabah" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitleNasabah">
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+          <div class="form-group">
+            <input type="hidden" id="nasabah_id" value="">
+            <label for="">ID NIK</label>
+            <br>
+            <p id="nik_data"> <i style="color: #c7c7c7">Tidak ada data</i> </p>
+
+            <label for="">Status</label>
+            <br>
+            <p id="status"> <i style="color: #c7c7c7">Tidak ada data</i> </p>
+
+            <label for="">Track</label>
+            <br>
+            <p id="track"> <i style="color: #c7c7c7">Tidak ada data</i> </p>
+
+            <label for="">Note</label>
+            <br>
+            <p id="note"> <i style="color: #c7c7c7">Tidak ada data</i> </p>
+
+          </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
     <!-- General JS Scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -284,12 +321,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js"></script> -->
+    <!-- <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/histogram-bellcurve.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script> -->
     <script>
       $(document).ready(function() {
         $('#example').DataTable({

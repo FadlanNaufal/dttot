@@ -50,7 +50,7 @@
                                     <td>{{$data->status}}</td>
                                     <td>{{$data->note}}</td>
                                     <td>
-                                        <a href="" id="showModalPaspor" data-toggle="modal" data-target='#practice_modal_paspor' data-id="{{ $data->id }}">Detail</a>
+                                        <a href="" id="showModalNasabah" data-toggle="modal" data-target='#practice_modal_nasabah' data-id="{{ $data->id }}">Detail</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -63,4 +63,35 @@
     </div>
 </div>
 </div>
+@endsection
+@section('javascript')
+<script>
+    $(document).ready(function() {
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('body').on('click', '#showModalNasabah', function(event) {
+
+            event.preventDefault();
+            var id = $(this).data('id');
+            console.log(id)
+            $.get('nasabah/' + id, function(data) {
+                $('#userCrudModal').html("Edit category");
+                $('#submit').val("Edit category");
+                $('#practice_modal_nasabah').modal('show');
+                $('#nasabah_id').val(data.data.id);
+                $('#exampleModalLongTitleNasabah').text(data.data.name);
+                $('#track').text(data.data.track);
+                $('#nik_data').text(data.data.id_nik);
+                $('#status').text(data.data.status);
+                $('#note').text(data.data.note);
+            })
+        });
+
+    });
+</script>
 @endsection

@@ -60,9 +60,13 @@ class NasabahController extends Controller
      * @param  \App\Nasabah  $nasabah
      * @return \Illuminate\Http\Response
      */
-    public function show(Nasabah $nasabah)
+    public function show($id)
     {
-        //
+        $nasabah = Nasabah::find($id);
+        
+	    return response()->json([
+	      'data' => $nasabah
+	    ]);
     }
 
     /**
