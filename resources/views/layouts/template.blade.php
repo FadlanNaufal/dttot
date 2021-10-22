@@ -73,7 +73,13 @@
                 <li><a class="nav-link" href="{{route('datapaspor.index')}}">Data Tanpa NIK</a></li>
               </ul>
             </li>
-            <li class="{{ (request()->is('nasabah')) ? 'active' : '' }}"><a class="nav-link" href="{{route('nasabah.index')}}"><i class="fas fa-users"></i> <span>Cek Nasabah Ilegal</span></a></li>
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-box"></i> <span>Cek Nasabah</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="{{route('nasabah.index')}}">Nasabah Tunggal</a></li>
+                <li><a class="nav-link" href="{{route('nasabah.check_nasabah')}}">Semua Nasabah</a></li>
+              </ul>
+            </li>
           </ul>
         </aside>
       </div>
@@ -304,6 +310,42 @@
             <label for="">Note</label>
             <br>
             <p id="note"> <i style="color: #c7c7c7">Tidak ada data</i> </p>
+
+          </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade bd-example-modal-lg" id="practice_modal_cek_nasabah" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitleCekNasabah">
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+          <div class="form-group">
+            <input type="hidden" id="nasabah_id" value="">
+            <label for="">ID NIK</label>
+            <br>
+            <p id="cek_nik_data"> <i style="color: #c7c7c7">Tidak ada data</i> </p>
+
+            <label for="">Status</label>
+            <br>
+            <p id="cek_status"> <i style="color: #c7c7c7">Tidak ada data</i> </p>
+
+            <label for="">Track</label>
+            <br>
+            <p id="cek_track"> <i style="color: #c7c7c7">Tidak ada data</i> </p>
+
+            <label for="">Note</label>
+            <br>
+            <p id="cek_note"> <i style="color: #c7c7c7">Tidak ada data</i> </p>
 
           </div>
           </div>

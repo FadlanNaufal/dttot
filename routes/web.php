@@ -33,4 +33,6 @@ Route::get('/datapaspor/{id}','DatanonikController@show')->name('datapaspor.show
 Route::get('/nasabah','NasabahController@index')->name('nasabah.index');
 Route::post('/nasabah','NasabahController@index')->name('nasabah.search');
 Route::get('/nasabah/{id}','NasabahController@show')->name('nasabah.show');
+Route::get('/cek-nasabah','NasabahController@check_index')->name('nasabah.check_nasabah');
+Route::post('/cek-nasabah','NasabahController@check_mass')->name('nasabah.checkmass');
 

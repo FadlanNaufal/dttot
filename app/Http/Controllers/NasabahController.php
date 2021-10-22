@@ -33,6 +33,28 @@ class NasabahController extends Controller
         // return view('nasabah.index',compact('data'));
     }
 
+    public function check_index(){
+        $data = [];
+        $total_nasabah = Nasabah::count();
+        $total_dttot = datanik::count();
+        return view('nasabah.checkmass',compact('data','total_nasabah','total_dttot'));
+    }
+
+    public function check_mass(){
+        $nasabah = Nasabah::get();
+        $suspect_nasabah = [];
+        foreach($nasabah as $nasabahs){
+            $checking_nasabah = datanik::where('id_nik',$nasabahs->id_nik)->first();
+            if ($checking_nasabah){
+                array_push($suspect_nasabah, $nasabahs);
+            }
+        }
+        $total_nasabah = Nasabah::count();
+        $total_dttot = datanik::count();
+        $data = $suspect_nasabah;
+        return view('nasabah.checkmass',compact('data','total_nasabah','total_dttot'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -53,6 +75,7 @@ class NasabahController extends Controller
     {
         //
     }
+
 
     /**
      * Display the specified resource.

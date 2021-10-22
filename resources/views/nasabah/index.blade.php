@@ -1,5 +1,5 @@
 @extends('layouts.template')
-@section('title','Daftar Nasabah')
+@section('title','Data Nasabah Ilegal')
 @section('content')
 <div class="container">
     <div class="row">
