@@ -13,7 +13,7 @@ class datanik extends Model
         'desc',
         'id_nik',
         'terduga',
-        'kode_sensus',
+        'kode_densus',
         'tempat_lahir',
         'tanggal_lahir',
         'wn',

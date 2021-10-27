@@ -4,9 +4,33 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible show fade">
+                    <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                        <span>&times;</span>
+                    </button>
+                    {{ session('alert') }}
+                    </div>
+                </div>
+            @endif
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible show fade">
+                    <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                        <span>&times;</span>
+                    </button>
+                    {{ session('success') }}
+                    </div>
+                </div>
+            @endif
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
                 <div class="card-body">
+                    @if(Auth::user()->role == 'admin')
+                        <a href="{{route('datanik.create')}}" class="btn btn-primary">Tambah Pengguna Terduga</a>
+                    @endif
+                    <br><br>
                     <div class="table-responsive">
                         <table id="example" class="table table-striped table-bordered" style="width:100%">
                             <thead>
@@ -28,7 +52,16 @@
                                     <td>{{$d->terduga}}</td>
                                     <td>{{$d->kode_densus}}</td>
                                     <td>
-                                        <a href="" id="showModalNik" data-toggle="modal" data-target='#practice_modal_nik' data-id="{{ $d->id }}">Detail</a>
+                                        <div class="btn-group">
+                                            <a class="btn btn-primary" href="" id="showModalNik" data-toggle="modal" data-target='#practice_modal_nik' data-id="{{ $d->id }}">Detail</a>
+                                            @if(Auth::user()->role == 'admin')
+                                                <a href="{{route('datanik.edit',$d->id)}}" class="btn btn-info">Edit</a>
+                                                <form action="{{route('datanik.destroy',$d->id)}}" method="post">
+                                                    @csrf @method('delete')
+                                                    <button class="btn btn-danger" onclick="return confirm('Are you sure?')">Hapus</button>
+                                                </form>
+                                            @endif
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach

@@ -13,7 +13,7 @@ class datanonik extends Model
         'desc',
         'id_paspor',
         'terduga',
-        'kode_sensus',
+        'kode_densus',
         'tempat_lahir',
         'tanggal_lahir',
         'wn',

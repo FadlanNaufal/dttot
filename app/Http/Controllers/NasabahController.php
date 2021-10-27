@@ -13,8 +13,15 @@ class NasabahController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function index(Request $request)
     {
+        return view('nasabah.index',[
+            'data' => Nasabah::latest()->get()
+        ]);
+    }
+
+    public function check_one(Request $request){
         $data_nik = datanik::where('id_nik',$request->nik)->first();
         $data_nasabah = Nasabah::where('id_nik',$request->nik)->first();
 
@@ -23,12 +30,12 @@ class NasabahController extends Controller
         
         if($data_nik  && $data_nasabah ){
             $data_nasabah = Nasabah::where('id_nik',$request->nik)->first();
-            return view('nasabah.index',[
+            return view('nasabah.checkone',[
                 'data' => $data_nasabah
             ]);
         }else{
             $data = [];
-            return view('nasabah.index',compact('data'));
+            return view('nasabah.checkone',compact('data'));
         }
         // return view('nasabah.index',compact('data'));
     }
@@ -62,7 +69,7 @@ class NasabahController extends Controller
      */
     public function create()
     {
-        //
+        return view('nasabah.create');
     }
 
     /**
@@ -73,7 +80,23 @@ class NasabahController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'id_nik' => ['required'],
+            'track' => ['required'],
+            'status' => ['required'],
+            'note' => ['required'],
+        ]);
+
+        $nasabah = new Nasabah();
+        $nasabah->name = $request->name;
+        $nasabah->id_nik = $request->id_nik;
+        $nasabah->track = $request->track;
+        $nasabah->status = $request->status;
+        $nasabah->note = $request->note;
+        $nasabah->save();
+
+        return redirect()->route('nasabah.index')->with('success', 'Berhasil menambahkan nasabah');
     }
 
 
@@ -98,9 +121,11 @@ class NasabahController extends Controller
      * @param  \App\Nasabah  $nasabah
      * @return \Illuminate\Http\Response
      */
-    public function edit(Nasabah $nasabah)
+    public function edit($id)
     {
-        //
+        return view('nasabah.edit',[
+            'data' => Nasabah::findOrFail($id)
+        ]);
     }
 
     /**
@@ -110,9 +135,17 @@ class NasabahController extends Controller
      * @param  \App\Nasabah  $nasabah
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Nasabah $nasabah)
+    public function update(Request $request, $id)
     {
-        //
+        $nasabah = Nasabah::findOrFail($id);
+        $nasabah->name = $request->name;
+        $nasabah->id_nik = $request->id_nik;
+        $nasabah->track = $request->track;
+        $nasabah->status = $request->status;
+        $nasabah->note = $request->note;
+        $nasabah->save();
+
+        return redirect()->route('nasabah.index')->with('success', 'Berhasil mengubah nasabah');
     }
 
     /**
@@ -121,8 +154,10 @@ class NasabahController extends Controller
      * @param  \App\Nasabah  $nasabah
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Nasabah $nasabah)
+    public function destroy($id)
     {
-        //
+        $data = Nasabah::findOrFail($id);
+        $data->delete();
+        return back()->with('success', 'Berhasil menghapus nasabah');
     }
 }

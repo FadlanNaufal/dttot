@@ -32,10 +32,10 @@
         <ul class="navbar-nav navbar-right">
           <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
               <img alt="image" src="{{asset('assets/img/avatar/avatar-1.png')}}" class="rounded-circle mr-1">
-              <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div>
+              <div class="d-sm-none d-lg-inline-block">{{Auth::user()->name}}</div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-              <div class="dropdown-title">Logged in 5 min ago</div>
+              <!-- <div class="dropdown-title">Logged in 5 min ago</div>
               <a href="features-profile.html" class="dropdown-item has-icon">
                 <i class="far fa-user"></i> Profile
               </a>
@@ -45,10 +45,13 @@
               <a href="features-settings.html" class="dropdown-item has-icon">
                 <i class="fas fa-cog"></i> Settings
               </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item has-icon text-danger">
+              <div class="dropdown-divider"></div> -->
+              <a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dropdown-item has-icon text-danger">
                 <i class="fas fa-sign-out-alt"></i> Logout
               </a>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                  @csrf
+              </form>
             </div>
           </li>
         </ul>
@@ -65,21 +68,63 @@
             <li class="menu-header">Dashboard</li>
             <li class="{{ (request()->is('home')) ? 'active' : '' }}"><a class="nav-link" href="{{route('home')}}"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
             <li class="menu-header">Starter</li>
-            <li class="nav-item dropdown">
-              <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-box"></i> <span>DTTOT</span></a>
-              <ul class="dropdown-menu">
-                <li><a class="nav-link" href="{{route('terorist.index')}}">Master Data</a></li>
-                <li><a class="nav-link" href="{{route('datanik.index')}}">Data NIK</a></li>
-                <li><a class="nav-link" href="{{route('datapaspor.index')}}">Data Tanpa NIK</a></li>
-              </ul>
-            </li>
-            <li class="nav-item dropdown">
-              <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-box"></i> <span>Cek Nasabah</span></a>
-              <ul class="dropdown-menu">
-                <li><a class="nav-link" href="{{route('nasabah.index')}}">Nasabah Tunggal</a></li>
-                <li><a class="nav-link" href="{{route('nasabah.check_nasabah')}}">Semua Nasabah</a></li>
-              </ul>
-            </li>
+
+            @if(Auth::guard('web')->check())
+              @if(Auth::guard('web')->check() && Auth::user()->role == 'admin')
+                <li class="{{ (request()->is('user')) ? 'active' : '' }}">
+                  <a class="nav-link" href="{{route('user.index')}}"><i class="fas fa-users"></i> <span>Akun Akses Pengguna</span></a>
+                </li>
+
+                <li class="{{ (request()->is('nasabah')) ? 'active' : '' }}">
+                  <a class="nav-link" href="{{route('nasabah.index')}}"><i class="fas fa-users"></i> <span>Nasabah</span></a>
+                </li>
+
+                <li class="nav-item dropdown">
+                  <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-box"></i> <span>DTTOT</span></a>
+                  <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="{{route('terorist.index')}}">Master Data</a></li>
+                    <li><a class="nav-link" href="{{route('datanik.index')}}">Data NIK</a></li>
+                    <li><a class="nav-link" href="{{route('datapaspor.index')}}">Data Tanpa NIK</a></li>
+                  </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                  <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-box"></i> <span>Cek Legalitas Nasabah</span></a>
+                  <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="{{route('nasabah.check_one')}}">Nasabah Tunggal</a></li>
+                    <li><a class="nav-link" href="{{route('nasabah.check_nasabah')}}">Semua Nasabah</a></li>
+                  </ul>
+                </li>
+                
+                <li class="nav-item dropdown">
+                  <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-box"></i> <span>Import CSV</span></a>
+                  <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="{{route('import.nasabah')}}">Nasabah</a></li>
+                    <li><a class="nav-link" href="{{route('import.datanik')}}">Data DTTOT NIK</a></li>
+                    <li><a class="nav-link" href="{{route('import.datapaspor')}}">Data DTTOT Paspor</a></li>
+                  </ul>
+                </li>
+              @endif
+
+              @if(Auth::guard('web')->check() && Auth::user()->role == 'user')
+                <li class="nav-item dropdown">
+                  <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-box"></i> <span>DTTOT</span></a>
+                  <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="{{route('terorist.index')}}">Master Data</a></li>
+                    <li><a class="nav-link" href="{{route('datanik.index')}}">Data NIK</a></li>
+                    <li><a class="nav-link" href="{{route('datapaspor.index')}}">Data Tanpa NIK</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown">
+                  <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-box"></i> <span>Cek Nasabah</span></a>
+                  <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="{{route('nasabah.check_one')}}">Nasabah Tunggal</a></li>
+                    <li><a class="nav-link" href="{{route('nasabah.check_nasabah')}}">Semua Nasabah</a></li>
+                  </ul>
+                </li>
+              @endif
+            @endif
+
           </ul>
         </aside>
       </div>

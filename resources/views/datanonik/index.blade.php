@@ -7,6 +7,10 @@
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
                 <div class="card-body">
+                    @if(Auth::user()->role == 'admin')
+                        <a href="{{route('datapaspor.create')}}" class="btn btn-primary">Tambah Pengguna Terduga</a>
+                    @endif
+                    <br><br>
                     <div class="table-responsive">
                         <table id="example" class="table table-striped table-bordered" style="width:100%">
                             <thead>
@@ -28,7 +32,16 @@
                                     <td>{{$d->terduga}}</td>
                                     <td>{{$d->kode_densus}}</td>
                                     <td>
-                                        <a href="" id="showModalPaspor" data-toggle="modal" data-target='#practice_modal_paspor' data-id="{{ $d->id }}">Detail</a>
+                                        <div class="btn-group">
+                                            <a class="btn btn-primary" href="" id="showModalPaspor" data-toggle="modal" data-target='#practice_modal_paspor' data-id="{{ $d->id }}">Detail</a>
+                                            @if(Auth::user()->role == 'admin')
+                                                <a href="{{route('datapaspor.edit',$d->id)}}" class="btn btn-info">Edit</a>
+                                                <form action="{{route('datapaspor.destroy',$d->id)}}" method="post">
+                                                    @csrf @method('delete')
+                                                    <button class="btn btn-danger" onclick="return confirm('Are you sure?')">Hapus</button>
+                                                </form>
+                                            @endif
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach

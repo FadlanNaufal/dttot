@@ -12,7 +12,7 @@ class terorist extends Model
         'nama',
         'deskripsi',
         'terduga',
-        'kode_sensus',
+        'kode_densus',
         'tempat_lahir',
         'tanggal_lahir',
         'warga_negara',
